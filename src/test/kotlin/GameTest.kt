@@ -9,13 +9,13 @@ object GameTest {
         game = Game()
     }
 
-    @Test fun roll() {
+    @Test fun roll0Once_results0points() {
         game.roll(0)
         val result = game.points
         assertEquals(0, result)
     }
 
-    @Test fun roll1Once() {
+    @Test fun roll1Once_results1point() {
         game.roll(1)
         val result = game.points
         assertEquals(1, result)
