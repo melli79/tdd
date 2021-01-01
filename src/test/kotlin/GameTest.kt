@@ -41,4 +41,12 @@ object GameTest {
         }
         assertNotNull(result)
     }
+
+    @Test fun roll21times_fails() {
+        repeat(20) { game.roll(0) }
+        val result = assertThrows(IllegalStateException::class.java) {
+            game.roll(0)
+        }
+        assertNotNull(result)
+    }
 }
