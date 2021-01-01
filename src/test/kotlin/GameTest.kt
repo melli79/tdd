@@ -53,4 +53,10 @@ object GameTest {
         }
         assertNotNull(result)
     }
+
+    @Test fun roll20thStrike_isNotOver() {
+        repeat(19) { game.roll(0) }
+        game.roll(10)
+        assertFalse(game.isOver())
+    }
 }
