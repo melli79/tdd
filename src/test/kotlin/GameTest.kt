@@ -22,12 +22,12 @@ object GameTest {
     }
 
     @Test fun roll0Game_resultsGameOver() {
-        roll0Game()
+        rollMany0s(20)
         assertTrue(game.isOver())
     }
 
-    private fun roll0Game() {
-        repeat(20) {
+    private fun rollMany0s(rounds :Int) {
+        repeat(rounds) {
             game.roll(0)
         }
     }
@@ -47,7 +47,7 @@ object GameTest {
     }
 
     @Test fun roll21times_fails() {
-        roll0Game()
+        rollMany0s(20)
         val result = assertThrows(IllegalStateException::class.java) {
             game.roll(0)
         }
@@ -55,7 +55,7 @@ object GameTest {
     }
 
     @Test fun roll20thStrike_isNotOver() {
-        repeat(19) { game.roll(0) }
+        rollMany0s(19)
         game.roll(10)
         assertFalse(game.isOver())
     }
