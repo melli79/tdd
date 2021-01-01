@@ -59,4 +59,11 @@ object GameTest {
         game.roll(10)
         assertFalse(game.isOver())
     }
+
+    @Test fun rollLastStrikeIn2_isNotOver() {
+        rollMany0s(18)
+        game.roll(5)
+        game.roll(5)
+        assertFalse(game.isOver())
+    }
 }
