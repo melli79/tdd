@@ -20,4 +20,11 @@ object GameTest {
         val result = game.points
         assertEquals(1, result)
     }
+
+    @Test fun roll0Game_resultsGameOver() {
+        repeat (20) {
+            game.roll(0)
+        }
+        assertTrue(game.isGameOver())
+    }
 }
