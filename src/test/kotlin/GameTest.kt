@@ -14,4 +14,10 @@ object GameTest {
         val result = game.points
         assertEquals(0, result)
     }
+
+    @Test fun roll1Once() {
+        game.roll(1)
+        val result = game.points
+        assertEquals(1, result)
+    }
 }
