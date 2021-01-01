@@ -27,4 +27,18 @@ object GameTest {
         }
         assertTrue(game.isGameOver())
     }
+
+    @Test fun roll11_fails() {
+        val result = assertThrows(IllegalArgumentException::class.java) {
+            game.roll(11)
+        }
+        assertNotNull(result)
+    }
+
+    @Test fun roll_1_fails() {
+        val result = assertThrows(IllegalArgumentException::class.java) {
+            game.roll(-1)
+        }
+        assertNotNull(result)
+    }
 }
