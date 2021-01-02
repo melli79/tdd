@@ -13,7 +13,10 @@ class Game {
         checkPointRange(points)
         if (rounds%2==1)
             lastOddRoll = points
-        this.points += points
+        if (rounds%2==1 && bonusRoll)
+            this.points += points*2
+        else
+            this.points += points
         checkForBonusRoll(points)
     }
 
@@ -23,7 +26,7 @@ class Game {
     }
 
     private fun checkForBonusRoll(points :Int) {
-        if (rounds == 20)
+        if (rounds%2==0)
             bonusRoll = lastOddRoll+points == 10
     }
 
