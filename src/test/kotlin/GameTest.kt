@@ -32,6 +32,18 @@ object GameTest {
         assertEquals(1*2, after2-after1) // not doubled
     }
 
+    @Test fun fullStrike_getNext2RollsDoubledPoints() {
+        game.roll(10)
+        val before = game.points
+        game.roll(5)
+        game.roll(4)
+        val after = game.points
+        game.roll(1)
+        val later = game.points
+        assertEquals(2*(5+4), after-before)
+        assertEquals(1*1, later-after)
+    }
+
     @Test fun roll11_fails() {
         val result = assertThrows(IllegalArgumentException::class.java) {
             game.roll(11)
