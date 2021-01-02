@@ -8,8 +8,7 @@ class Game {
     private var lastOddRoll = 0
 
     fun roll(points :Int) {
-        if (isOver()) throw IllegalStateException("Cannot roll more than 20 times per Game.")
-        rounds++
+        handleRound()
         checkPointRange(points)
         if (rounds%2==1)
             lastOddRoll = points
@@ -18,6 +17,11 @@ class Game {
         else
             this.points += points
         checkForBonusRoll(points)
+    }
+
+    private fun handleRound() {
+        if (isOver()) throw IllegalStateException("Cannot roll more than 20 times per Game.")
+        rounds++
     }
 
     private fun checkPointRange(points :Int) {
