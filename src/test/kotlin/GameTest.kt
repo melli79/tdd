@@ -44,6 +44,17 @@ object GameTest {
         assertEquals(1*1, later-after)
     }
 
+    @Test fun fullStrikeIntheEnd_endsAfter22Rolls() {
+        rollMany0s(18)
+        game.roll(10)
+        val before = game.points
+        game.roll(10)
+        game.roll(10)
+        val after = game.points
+        assertTrue(game.isOver())
+        assertEquals(10+10, after-before) // these are bonus rolls
+    }
+
     @Test fun roll11_fails() {
         val result = assertThrows(IllegalArgumentException::class.java) {
             game.roll(11)

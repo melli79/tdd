@@ -12,7 +12,7 @@ class Game {
         checkPointRange(points)
         if (rounds%2==1 && points<10)
             lastOddRoll = points
-        if (bonusRolls>0)
+        if (bonusRolls>0 && rounds<=20)
             this.points += points*2
         else
             this.points += points
