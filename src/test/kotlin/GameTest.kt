@@ -66,4 +66,11 @@ object GameTest {
         game.roll(5)
         assertFalse(game.isOver())
     }
+
+    @Test fun roll11inFrame_fails() {
+        game.roll(5)
+        assertThrows(IllegalStateException::class.java) {
+            game.roll(6)
+        }
+    }
 }
