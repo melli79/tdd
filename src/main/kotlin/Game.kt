@@ -11,15 +11,23 @@ class Game {
     fun roll(points :Int) {
         handleRound()
         checkPointRange(points)
-        if (rounds%2==1 && points<10)
-            lastOddRoll = points
+        saveOddRollPoints(points)
+        addPoints(points)
+        checkForBonusRoll(points)
+    }
+
+    private fun addPoints(points :Int) {
         if (tripleRoll)
-            this.points += points*3
-        else if (bonusRolls>0 && rounds<=20)
-            this.points += points*2
+            this.points += points * 3
+        else if (bonusRolls > 0 && rounds <= 20)
+            this.points += points * 2
         else
             this.points += points
-        checkForBonusRoll(points)
+    }
+
+    private fun saveOddRollPoints(points :Int) {
+        if (rounds % 2 == 1 && points < 10)
+            lastOddRoll = points
     }
 
     private fun handleRound() {
@@ -32,17 +40,21 @@ class Game {
         if (rounds % 2 == 0 && lastOddRoll + points > 10) throw IllegalStateException("Cannot roll more than 10 in a Frame.")
     }
 
-    private fun checkForBonusRoll(points :Int) {
-        if (rounds%2==0) {
-            bonusRolls = if (lastOddRoll+points == 10) 1 else 0
+    private fun checkForBonusRoll(points :Int) = when {
+        rounds%2==0 -> {
+            bonusRolls = if (lastOddRoll + points == 10) 1 else 0
             tripleRoll = false
-        } else if (points==10 && rounds<=20) {
+        }
+        points==10 && rounds<=20 -> {
             tripleRoll = bonusRolls>0
             bonusRolls = if (rounds<19) 2 else 3
             if (rounds<20)
                 rounds++
-        } else if (bonusRolls>0) {
-            bonusRolls--
+            Unit
+        }
+        else -> {
+            if (bonusRolls>0)
+                bonusRolls--
             tripleRoll = false
         }
     }
