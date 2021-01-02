@@ -14,8 +14,12 @@ class Game {
         rounds++
         if (rounds==19)
             lastOddRoll = points
-        if (rounds==20&&lastOddRoll+points==10)
-            bonusRoll = true
+        checkForBonusRoll(points)
+    }
+
+    private fun checkForBonusRoll(points :Int) {
+        if (rounds == 20)
+            bonusRoll = lastOddRoll+points == 10
     }
 
     fun isOver() = rounds >= if(bonusRoll) 21 else 20
