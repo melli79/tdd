@@ -5,6 +5,7 @@ class Game {
     var rounds = 0
       private set
     private var bonusRolls = 0
+    private var tripleRoll = false
     private var lastOddRoll = 0
 
     fun roll(points :Int) {
@@ -12,7 +13,9 @@ class Game {
         checkPointRange(points)
         if (rounds%2==1 && points<10)
             lastOddRoll = points
-        if (bonusRolls>0 && rounds<=20)
+        if (tripleRoll)
+            this.points += points*3
+        else if (bonusRolls>0 && rounds<=20)
             this.points += points*2
         else
             this.points += points
@@ -30,14 +33,18 @@ class Game {
     }
 
     private fun checkForBonusRoll(points :Int) {
-        if (rounds%2==0)
+        if (rounds%2==0) {
             bonusRolls = if (lastOddRoll+points == 10) 1 else 0
-        else if (points==10) {
-            bonusRolls = 2
+            tripleRoll = false
+        } else if (points==10 && rounds<=20) {
+            tripleRoll = bonusRolls>0
+            bonusRolls = if (rounds<19) 2 else 3
             if (rounds<20)
                 rounds++
-        } else if (bonusRolls>0)
+        } else if (bonusRolls>0) {
             bonusRolls--
+            tripleRoll = false
+        }
     }
 
     fun isOver() = rounds >= 20+bonusRolls

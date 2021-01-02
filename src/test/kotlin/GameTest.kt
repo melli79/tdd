@@ -44,15 +44,13 @@ object GameTest {
         assertEquals(1*1, later-after)
     }
 
-    @Test fun fullStrikeIntheEnd_endsAfter22Rolls() {
-        rollMany0s(18)
+    @Test fun tripleStrike_lastCountsTriple() {
+        game.roll(10)
         game.roll(10)
         val before = game.points
         game.roll(10)
-        game.roll(10)
         val after = game.points
-        assertTrue(game.isOver())
-        assertEquals(10+10, after-before) // these are bonus rolls
+        assertEquals(3*10, after-before)
     }
 
     @Test fun roll11_fails() {
@@ -106,5 +104,16 @@ object GameTest {
         game.roll(5)
         game.roll(5)
         assertFalse(game.isOver())
+    }
+
+    @Test fun fullStrikeIntheEnd_endsAfter22Rolls() {
+        rollMany0s(18)
+        game.roll(10)
+        val before = game.points
+        game.roll(10)
+        game.roll(10)
+        val after = game.points
+        assertTrue(game.isOver())
+        assertEquals(10+10, after-before) // these are bonus rolls
     }
 }
