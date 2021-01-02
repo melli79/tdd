@@ -21,17 +21,6 @@ object GameTest {
         assertEquals(1, result)
     }
 
-    @Test fun roll0Game_resultsGameOver() {
-        rollMany0s(20)
-        assertTrue(game.isOver())
-    }
-
-    private fun rollMany0s(rounds :Int) {
-        repeat(rounds) {
-            game.roll(0)
-        }
-    }
-
     @Test fun roll11_fails() {
         val result = assertThrows(IllegalArgumentException::class.java) {
             game.roll(11)
@@ -44,6 +33,24 @@ object GameTest {
             game.roll(-1)
         }
         assertNotNull(result)
+    }
+
+    @Test fun roll11inFrame_fails() {
+        game.roll(5)
+        assertThrows(IllegalStateException::class.java) {
+            game.roll(6)
+        }
+    }
+
+    @Test fun roll0Game_resultsGameOver() {
+        rollMany0s(20)
+        assertTrue(game.isOver())
+    }
+
+    private fun rollMany0s(rounds :Int) {
+        repeat(rounds) {
+            game.roll(0)
+        }
     }
 
     @Test fun roll21times_fails() {
@@ -65,12 +72,5 @@ object GameTest {
         game.roll(5)
         game.roll(5)
         assertFalse(game.isOver())
-    }
-
-    @Test fun roll11inFrame_fails() {
-        game.roll(5)
-        assertThrows(IllegalStateException::class.java) {
-            game.roll(6)
-        }
     }
 }
